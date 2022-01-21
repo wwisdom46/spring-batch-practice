@@ -1,4 +1,4 @@
-package spring.batch.springbatchexample;
+package spring.batch.springbatchexample.part1;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -24,7 +24,7 @@ public class HelloConfiguration {
     @Bean
     public Job helloJob() { // Job 은 스프링 배치의 실행 단위
         return jobBilderFactory.get("helloJob") // name 은 스프링 배치를 실행시킬 key가 되기도 함
-                .incrementer(new RunIdIncrementer())
+                .incrementer(new RunIdIncrementer()) // RunIdIncrementer 가 항상 다른 JobInstance를 생성되게 함
                 .start(this.helloStep())
                 .build();
     }
