@@ -9,3 +9,5 @@ spring:
   sql:
     init:
       data-locations: classpath:person.sql
+  jpa:
+    defer-datasource-initialization: true
