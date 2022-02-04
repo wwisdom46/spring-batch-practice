@@ -52,7 +52,7 @@ public class SavePersonConfiguration {
     @Bean
     @JobScope
     public Step savePersonStep(@Value("#{jobParameters[allow_duplicate]}") String allowDuplicate) throws Exception {
-        return this.stepBuilderFactory.get("savePersonJob")
+        return this.stepBuilderFactory.get("savePersonStep")
                 .<Person, Person>chunk(10)
                 .reader(itemReader())
                 .processor(new DuplicateValidationProcessor<>(Person::getName, Boolean.parseBoolean(allowDuplicate)))
