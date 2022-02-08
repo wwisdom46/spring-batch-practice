@@ -66,6 +66,8 @@ public class SavePersonConfiguration {
                 .faultTolerant() // skip과 같은 예외처를 설정할 수 있는 메서드 제공
                 .skip(NotFoundNameException.class)
                 .skipLimit(2)
+                //.retry(NotFoundNameException.class)
+                //.retryLimit(3)
                 .build();
     }
 
@@ -80,7 +82,7 @@ public class SavePersonConfiguration {
         };
 
         CompositeItemProcessor<Person, Person> itemProcessor = new CompositeItemProcessorBuilder<Person, Person>()
-                .delegates(validationProcessor, duplicateValidationProcessor)
+                .delegates(new PersonValidationRetryProcessor(), validationProcessor, duplicateValidationProcessor)
                 .build();
 
         itemProcessor.afterPropertiesSet();
